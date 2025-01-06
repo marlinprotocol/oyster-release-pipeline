@@ -14,11 +14,11 @@ jobs:
         include:
         - os: 'ubuntu-24.04'
           runs-on: 'ubicloud-standard-8'
-          OS: linux
+          OOS: linux
           ARCH: amd64
         - os: 'ubuntu-24.04'
           runs-on: 'ubicloud-standard-8-arm'
-          OS: linux
+          OOS: linux
           ARCH: arm64
     runs-on: ${{ matrix.runs-on }}
     steps:
@@ -35,4 +35,4 @@ jobs:
     - name: build
       run: nix build -vL --accept-flake-config github:marlinprotocol/oyster-monorepo/control-plane-${{github.event.inputs.version}}#musl.operator.control-plane.uncompressed
     - name: upload
-      run: AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} ./result/bin/control-plane s3://artifacts/oyster/binaries/control-plane_${{github.event.inputs.version}}_${{matrix.OS}}_${{matrix.ARCH}}
+      run: AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} ./result/bin/control-plane s3://artifacts/oyster/binaries/control-plane_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}
