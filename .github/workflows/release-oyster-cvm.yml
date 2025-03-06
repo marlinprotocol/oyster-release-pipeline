@@ -13,8 +13,14 @@ jobs:
       matrix:
         include:
         - runs-on: 'ubicloud-standard-8'
+          OOS: linux
+          ARCH: amd64
         - runs-on: 'ubicloud-standard-8-arm'
+          OOS: linux
+          ARCH: arm64
         - runs-on: 'macos-latest'
+          OOS: darwin
+          ARCH: arm64
     runs-on: ${{ matrix.runs-on }}
     steps:
     - name: echo
