@@ -35,4 +35,4 @@ jobs:
     - name: build
       run: nix build -vL --accept-flake-config github:marlinprotocol/oyster-monorepo/control-plane-${{github.event.inputs.version}}#musl.operator.control-plane.uncompressed
     - name: upload
-      run: AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} ./result/bin/control-plane s3://artifacts/oyster/binaries/control-plane_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}
+      run: AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} --checksum-algorithm=CRC32 ./result/bin/control-plane s3://artifacts/oyster/binaries/control-plane_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}
