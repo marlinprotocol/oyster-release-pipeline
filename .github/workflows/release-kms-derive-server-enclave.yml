@@ -33,5 +33,5 @@ jobs:
       run: nix build -vL --accept-flake-config github:marlinprotocol/oyster-monorepo/kms-derive-server-enclave-${{github.event.inputs.version}}#musl.kms.derive-server-enclave.default
     - name: upload
       run: |
-        AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} ./result/image.eif s3://artifacts/oyster/eifs/kms-derive-server_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}.eif
-        AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} ./result/pcr.json s3://artifacts/oyster/eifs/kms-derive-server_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}.json
+        AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} --checksum-algorithm=CRC32 ./result/image.eif s3://artifacts/oyster/eifs/kms-derive-server_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}.eif
+        AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} aws s3 cp --endpoint-url ${{secrets.AWS_S3_ENDPOINT}} --checksum-algorithm=CRC32 ./result/pcr.json s3://artifacts/oyster/eifs/kms-derive-server_${{github.event.inputs.version}}_${{matrix.OOS}}_${{matrix.ARCH}}.json
