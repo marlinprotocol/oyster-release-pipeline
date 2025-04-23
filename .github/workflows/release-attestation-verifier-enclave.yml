@@ -1,4 +1,4 @@
-name: Release kms/attestation-verifier-enclave
+name: Release attestation/verifier-enclave
 on:
   workflow_dispatch:
    inputs:
